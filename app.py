@@ -344,32 +344,22 @@ with st.sidebar:
     # Priority action: Upload at top
     uploaded_file = st.file_uploader("Upload CSV", type="csv", label_visibility="collapsed")
 
-    st.markdown("""
-        <div class="sidebar-section">OVERVIEW</div>
-        <div class="sidebar-item active">
-            <span class="sidebar-item-icon" style="opacity: 0.8;">📊</span> Dashboard
-        </div>
-        <div class="sidebar-item">
-            <span class="sidebar-item-icon" style="opacity: 0.8;">💰</span> Revenue
-        </div>
-        
+    # Simple navigation logic
+    st.markdown('<div class="sidebar-section">NAVIGATION</div>', unsafe_allow_html=True)
+    page = st.radio("", ["📊 Dashboard", "💡 Business Strategy"], label_visibility="collapsed")
+
+    st.markdown(f"""
         <div class="sidebar-section">AI MODELS</div>
-        <div class="sidebar-item">
+        <div class="sidebar-item {"active" if "Dashboard" in page else ""}">
             <span class="sidebar-item-icon" style="opacity: 0.8;">🧩</span> Segmentation
         </div>
         <div class="sidebar-item">
             <span class="sidebar-item-icon" style="opacity: 0.8;">📈</span> Forecasting
         </div>
-        <div class="sidebar-item">
-            <span class="sidebar-item-icon" style="opacity: 0.8;">🧪</span> Predictor
-        </div>
         
-        <div class="sidebar-section">DATA</div>
-        <div class="sidebar-item">
-            <span class="sidebar-item-icon" style="opacity: 0.8;">💸</span> Transactions
-        </div>
-        <div class="sidebar-item">
-            <span class="sidebar-item-icon" style="opacity: 0.8;">📦</span> Products
+        <div class="sidebar-section">INTERPRETATION</div>
+        <div class="sidebar-item {"active" if "Strategy" in page else ""}">
+            <span class="sidebar-item-icon" style="opacity: 0.8;">🏢</span> Economic Strategy
         </div>
     """, unsafe_allow_html=True)
     
@@ -461,7 +451,108 @@ else:
     unique_cust_str = f"{unique_cust:,}"
     total_txn_str = f"{total_txn:,}"
 
-# ── Main Content Area ─────────────────────────────────────────
+# ── Strategy Page Logic ───────────────────────────────────────
+def render_strategy_page():
+    st.markdown('<div class="dashboard-title">Strategic Business Interpretation</div>', unsafe_allow_html=True)
+    st.markdown('<div class="dashboard-subtitle">Data-Driven Insights from the $401.97M Retail Ecosystem</div>', unsafe_allow_html=True)
+
+    # 1. Revenue Optimization & CLV
+    st.markdown("""
+        <div style="border-left: 4px solid #3b82f6; padding-left: 15px; margin-bottom: 30px; margin-top: 30px;">
+            <h3 style="margin:0; font-weight:700; color: #1e293b;">1. Revenue Optimization (Segmentation Strategy)</h3>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    c1, c2 = st.columns(2)
+    with c1:
+        st.markdown("""
+            <div class="chart-card">
+                <div class="chart-title">Premium Segment Value ($11K+ per Customer)</div>
+                <div style="font-size: 0.95rem; color: #475569; line-height: 1.6;">
+                    Our AI models identify the <b>Premium</b> segment as the core driver of profitability, with an average revenue of <b>$11,006</b> per customer. 
+                    Economically, these customers represent <b>inelastic demand</b>. 
+                    <b>Strategy:</b> Implement "White Glove" services and exclusive early access to major categories like <b>Electronics</b> (our #1 category at $90M+) to maximize CLV.
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+    with c2:
+        st.markdown("""
+            <div class="chart-card">
+                <div class="chart-title">Bargain & Frequent Dynamics</div>
+                <div style="font-size: 0.95rem; color: #475569; line-height: 1.6;">
+                    The <b>Frequent</b> ($6.8K) and <b>Bargain</b> ($4.0K) segments represent our high-volume engine. 
+                    With a lower individual order value (~$1.2K-$1.4K), these segments are highly sensitive to price changes. 
+                    <b>Strategy:</b> Use bundle-pricing or cross-selling between Grocery and Clothing to increase the "Avg Order Value" beyond the current <b>$1.4K</b> benchmark.
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+
+    # 2. Demand-Supply Equilibrium
+    st.markdown("""
+        <div style="border-left: 4px solid #10b981; padding-left: 15px; margin-bottom: 30px; margin-top: 30px;">
+            <h3 style="margin:0; font-weight:700; color: #1e293b;">2. Demand-Supply Dynamics (Forecasting Performance)</h3>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+        <div class="chart-card">
+            <div style="display: flex; gap: 2rem; align-items: flex-start;">
+                <div style="flex: 1;">
+                    <div class="chart-title">March Growth & Future Scalability</div>
+                    <p style="font-size: 0.95rem; color: #475569; line-height: 1.6;">
+                        The dashboard reveals a massive structural shift in March (the "Revenue Leap" from $11M to $32M). 
+                        Our forecast predicts steady growth towards <b>$39.8M</b> by Month +3. 
+                        <b>Efficiency:</b> To maintain the current <b>$1.4K Avg Order Value</b>, we must ensure Supply Chain stability 
+                        for <b>Electronics</b> and <b>Groceries</b>, which together account for nearly 45% of our $401M total.
+                    </p>
+                </div>
+                <div style="flex: 1; background: #eff6ff; padding: 1.5rem; border-radius: 12px; border: 1px solid #dbeafe;">
+                    <div style="font-weight: 600; color: #2563eb; margin-bottom: 0.5rem;">Forecasting Precision (R²: 0.41)</div>
+                    <p style="font-size: 0.85rem; color: #1e40af; margin: 0;">
+                        While the R² index is moderate, the <b>RMSE of $5.83M</b> indicates high directional accuracy. 
+                        The model successfully captures the upward trajectory, enabling better <b>Working Capital Allocation</b> 
+                        for peak inventory months.
+                    </p>
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # 3. Risk Analysis
+    st.markdown("""
+        <div style="border-left: 4px solid #ef4444; padding-left: 15px; margin-bottom: 30px; margin-top: 30px;">
+            <h3 style="margin:0; font-weight:700; color: #1e293b;">3. Financial Risk Analysis (Revenue Leakage)</h3>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.markdown("""
+            <div class="chart-card">
+                <div class="chart-title">Churn Probability & Liquidity</div>
+                <div style="font-size: 0.95rem; color: #475569; line-height: 1.6;">
+                    The <b>At-Risk</b> segment maintains an average revenue of only <b>$1.6K</b> per customer with sparse ordering (1.6 orders avg). 
+                    Economically, this represents <b>opportunity cost</b>. If even 10% of this segment churns, 
+                    the firm faces a liquidity variance of nearly several million dollars.
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+    with col_b:
+        st.markdown("""
+            <div class="chart-card">
+                <div class="chart-title">Mitigation & Stabilization</div>
+                <div style="font-size: 0.95rem; color: #475569; line-height: 1.6;">
+                    <b>Risk Strategy:</b> Converting At-Risk customers to "Frequent" (moving from $1.6K to $6.8K per head) 
+                    is the most efficient way to scale revenue without expensive new customer acquisition. 
+                    Focusing on "At-Risk" re-engagement stabilizes the <b>Firm Valuation</b> by proving revenue predictability.
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+
+# ── Main Content Routing ─────────────────────────────────────
+if "Strategy" in page:
+    render_strategy_page()
+    st.stop()
 
 st.markdown('<div class="dashboard-title">Revenue Growth Strategy Dashboard</div>', unsafe_allow_html=True)
 st.markdown('<div class="dashboard-subtitle">Retail Transactional Dataset · Customer Segmentation · Sales Forecasting</div>', unsafe_allow_html=True)
